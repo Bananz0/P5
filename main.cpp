@@ -132,16 +132,20 @@ void printBinaryArray(std::vector<bool> binArray){
 
     std::cout << "\n";
 }
-std::vector<bool>binaryComplement(std::vector<bool> binArrayIn){
-    for(int i = binArrayIn.size()-1; i >= 0; i--){
-        if (binArrayIn[i] == 1) {
-            binArrayIn[i] = 0;
-            break;
-        }
-        if (binArrayIn[i] == 0) binArrayIn[i] = 1;
+std::vector<bool> twosComplement(std::vector<bool> binaryArray) {
+    std::vector<bool> binArrayComplement(binaryArray.size(), false);
+    //One's Complement
+    for (int i = binaryArray.size() - 1; i >= 0; i--) {
+        binArrayComplement[i] = !binaryArray[i];
     }
-    return binArrayIn;
+    //Two's Complement
+    for (int i = binArrayComplement.size() - 1; i >= 0; i--) {
+        if (binArrayComplement[i] == 0) {binArrayComplement[i] = 1; break;}
+        else binArrayComplement[i] = 0;
+    }
+    return binArrayComplement;
 }
+
 
 
 int main() {
@@ -156,9 +160,9 @@ int main() {
 
     std::cout << "Sum: " << sum << " Carry: " << carry << "\n";
 
-    std::vector<bool> testArray = convertToBinary(10);
+    std::vector<bool> testArray = convertToBinary(-20);
     printBinaryArray(testArray);
-    printBinaryArray(binaryComplement((testArray)));
+    printBinaryArray(twosComplement((testArray)));
     int outer = convertBinaryToInt((testArray));
     std::cout << outer ;
 
