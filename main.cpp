@@ -1,4 +1,7 @@
 #include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
 
 //Gates as classes
 class Gate {
@@ -48,6 +51,8 @@ public:
     }
 };
 
+
+
 class halfAdder {
 private:
     bool sum, carry;
@@ -79,6 +84,65 @@ public:
     }
 
 };
+class fullAdder{
+private:
+    bool fSum, fCarry, f_cIn;
+public:
+    halfAdder* halfy = new halfAdder;
+    fullAdder() : fCarry(false), fSum(false), f_cIn(false){};
+    void setInputs(bool fSumIn, bool fCarryIn,bool f_cInIn){
+        fSum = fSumIn;
+        fCarry = fCarryIn;
+        f_cIn = f_cInIn;
+    }
+
+};
+
+//Convert numer to binary
+std::vector<bool>convertToBinary(int numIn){
+    std::vector<bool> binArray;
+    bool isNegative = false;
+    if (numIn < 0) {isNegative = true;numIn = -numIn;}
+    for (int i = 0; numIn != 0; i++){
+        binArray.push_back(numIn%2);
+        numIn /= 2;
+    }
+    std::cout << "Bin Array zise "<<binArray.size() << "\n";
+    //Padding
+    for (int i = 0; binArray.size() < 8; i++) {
+        binArray.push_back(false);
+    }
+    //Sign Bit
+    if (isNegative) binArray.push_back(true);
+    std::reverse(binArray.begin(), binArray.end());
+    return binArray;
+}
+int convertBinaryToInt(std::vector<bool> binArray) {
+    int out = 0;
+    for (int a = 1; a < binArray.size(); a++) {
+        out += binArray[a] * pow(2,binArray.size()-1-a);
+    }
+    binArray[0]?out = -out:out = out;
+    return out;
+}
+void printBinaryArray(std::vector<bool> binArray){
+    std::cout << "Binary Array: ";
+    for (int i = 0; i < binArray.size(); i++)
+        std::cout << binArray[i];
+
+    std::cout << "\n";
+}
+std::vector<bool>binaryComplement(std::vector<bool> binArrayIn){
+    for(int i = binArrayIn.size()-1; i >= 0; i--){
+        if (binArrayIn[i] == 1) {
+            binArrayIn[i] = 0;
+            break;
+        }
+        if (binArrayIn[i] == 0) binArrayIn[i] = 1;
+    }
+    return binArrayIn;
+}
+
 
 int main() {
     auto* halfAdd = new halfAdder();
@@ -90,10 +154,12 @@ int main() {
     bool carry = halfAdd->getCarry();
     delete halfAdd;
 
-    std::cout << "Sum: " << sum << " Carry: "<< carry;
+    std::cout << "Sum: " << sum << " Carry: " << carry << "\n";
 
-
-
-
+    std::vector<bool> testArray = convertToBinary(10);
+    printBinaryArray(testArray);
+    printBinaryArray(binaryComplement((testArray)));
+    int outer = convertBinaryToInt((testArray));
+    std::cout << outer ;
 
 }
