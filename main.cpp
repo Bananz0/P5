@@ -2,10 +2,13 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include "Creature.h"
+
+
 
 bool overflow = false;
 
-void printBinaryArray(std::vector<bool> binArray);
+void printBinaryArray(const std::vector<bool>& binArray);
 int convertBinaryToInt(std::vector<bool> binArray);
 std::vector<bool>convertToBinary(int numIn);
 std::vector<bool> twosComplement(std::vector<bool> binaryArray);
@@ -57,8 +60,6 @@ public:
         return C;
     }
 };
-
-
 
 class halfAdder {
 private:
@@ -147,9 +148,11 @@ public:
     }
 };
 
-
 int main() {
     std::vector<bool> numeroUno, numeroDos,result;
+    int numeroOne, numeroTwo;
+    bool cIn_custom;
+    char operatorType;
 //    auto* halfAdd = new halfAdder();
 //    //halfAdder* halfAdd = new halfAdder();
 //
@@ -167,56 +170,56 @@ int main() {
 //    printBinaryArray(numeroDos);
 //
 
-    //ACTUAL LAB
-    int numeroOne, numeroTwo;
-    bool cIn_custom;
-    char operatorType;
 
-    std::cout << "Input your first number (A):";
-    std::cin >> numeroOne;
-    std::cout << "Input your first number (B):";
-    std::cin >> numeroTwo;
-    std::cout << "Select your operation (+ / -):";
-    std::cin >> operatorType;
+//    //ACTUAL LAB
+//    std::cout << "Input your first number (A):";
+//    std::cin >> numeroOne;
+//    std::cout << "Input your first number (B):";
+//    std::cin >> numeroTwo;
+//    std::cout << "Select your operation (+ / -):";
+//    std::cin >> operatorType;
+//    std::cout << std::endl;
+//
+//    numeroUno = convertToBinary(numeroOne);
+//    numeroDos = convertToBinary(numeroTwo);
+//
+//
+//    std::cout <<"Corresponding value of A in binary: ";
+//    printBinaryArray(numeroUno);
+//    std::cout <<"Corresponding value of B in binary: ";
+//    printBinaryArray(numeroDos);
+//
+//    std::cout << numeroOne <<  operatorType << numeroTwo << std::endl;
+//    if (operatorType == '-') numeroDos = twosComplement(numeroDos);
+//
+//    std::cout << "cIn value is:";
+//    std::cin >> cIn_custom;
+//
+//    auto* fully = new fullAdder;
+//    fully->setInputs(false, false,cIn_custom);
+//    fully->calculateSum(numeroUno, numeroDos);
+//    result =  fully->getOutput();
+//    printBinaryArray(result);
+//
+//    std::cout << "\nDecimal Equivalent (Sum) : " << convertBinaryToInt(result) << "\n";
+//    std::cout << "Sum: " << "0" << " Carry: " << overflow << "\n";
+//
+//    delete fully;
+
+    auto* James = new Human;
+    std::cout << James->getSpecies() << std::endl;
+    James->getDamage();
+    delete James;
 
 
-    numeroUno = convertToBinary(numeroOne);
-    numeroDos = convertToBinary(numeroTwo);
-
-    std::cout << "Corresponding value of A in binary:";
-    printBinaryArray(numeroUno);
-    std::cout << "\nCorresponding value of B in binary:";
-    printBinaryArray(numeroDos);
-
-    std::cout << "\n" << numeroOne <<  operatorType << numeroTwo;
-    if (operatorType == '-') numeroDos = twosComplement(numeroDos);
-
-    std::cout << "\ncIn value is:";
-    std::cin >> cIn_custom;
-
-
-    auto* fully = new fullAdder;
-    fully->setInputs(false, false,cIn_custom);
-    fully->calculateSum(numeroUno, numeroDos);
-    result =  fully->getOutput();
-    printBinaryArray(result);
-
-    std::cout << "\nDecimal Equivalent (Sum) : " << convertBinaryToInt(result) << "\n";
-    std::cout << "Sum: " << "0" << " Carry: " << overflow << "\n";
-
-
-    delete fully;
-
-
-
-
+    auto* Tonal = new Balrog;
+    std::cout << James->getSpecies() << std::endl;
+    James->getDamage();
+    delete James;
 
 
 
 }
-
-
-
 
 //Convert numero to binary
 std::vector<bool>convertToBinary(int numIn){
@@ -281,7 +284,9 @@ int convertBinaryToInt(std::vector<bool> binArray) {
 
     return out;
 }
-void printBinaryArray(std::vector<bool> binArray) {
-    for (auto && i : binArray)
+void printBinaryArray(const std::vector<bool>& binArray) {
+    for (auto &&i: binArray) {
         std::cout << i;
+    }
+    std::cout << std::endl;
 }
