@@ -98,7 +98,7 @@ Balrog::Balrog()  {
 int Balrog::getDamage() {
     int damage;
     damage = Demon::getDamage();
-    int damage2 = Creature::getDamage();
+    int damage2 = Demon::getDamage();
     cout << "Balrog speed attack inflicts " << damage2 <<
          " additional damage points!" << endl;
     damage = damage + damage2;

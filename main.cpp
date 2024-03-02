@@ -3,8 +3,10 @@
 #include <cmath>
 #include <algorithm>
 #include "Creature.h"
-
-
+#include <thread>
+#include <chrono>
+#include <cstdlib>
+#include <ctime>
 
 bool overflow = false;
 
@@ -171,51 +173,108 @@ int main() {
 //
 
 
-//    //ACTUAL LAB
-//    std::cout << "Input your first number (A):";
-//    std::cin >> numeroOne;
-//    std::cout << "Input your first number (B):";
-//    std::cin >> numeroTwo;
-//    std::cout << "Select your operation (+ / -):";
-//    std::cin >> operatorType;
-//    std::cout << std::endl;
-//
-//    numeroUno = convertToBinary(numeroOne);
-//    numeroDos = convertToBinary(numeroTwo);
-//
-//
-//    std::cout <<"Corresponding value of A in binary: ";
-//    printBinaryArray(numeroUno);
-//    std::cout <<"Corresponding value of B in binary: ";
-//    printBinaryArray(numeroDos);
-//
-//    std::cout << numeroOne <<  operatorType << numeroTwo << std::endl;
-//    if (operatorType == '-') numeroDos = twosComplement(numeroDos);
-//
-//    std::cout << "cIn value is:";
-//    std::cin >> cIn_custom;
-//
-//    auto* fully = new fullAdder;
-//    fully->setInputs(false, false,cIn_custom);
-//    fully->calculateSum(numeroUno, numeroDos);
-//    result =  fully->getOutput();
-//    printBinaryArray(result);
-//
-//    std::cout << "\nDecimal Equivalent (Sum) : " << convertBinaryToInt(result) << "\n";
-//    std::cout << "Sum: " << "0" << " Carry: " << overflow << "\n";
-//
-//    delete fully;
+    //ACTUAL LAB
+    std::cout << "Input your first number (A):";
+    std::cin >> numeroOne;
+    std::cout << "Input your first number (B):";
+    std::cin >> numeroTwo;
+    std::cout << "Select your operation (+ / -):";
+    std::cin >> operatorType;
+    std::cout << std::endl;
+
+    numeroUno = convertToBinary(numeroOne);
+    numeroDos = convertToBinary(numeroTwo);
+
+
+    std::cout <<"Corresponding value of A in binary: ";
+    printBinaryArray(numeroUno);
+    std::cout <<"Corresponding value of B in binary: ";
+    printBinaryArray(numeroDos);
+
+    std::cout << numeroOne <<  operatorType << numeroTwo << std::endl;
+    if (operatorType == '-') numeroDos = twosComplement(numeroDos);
+
+    std::cout << "cIn value is:";
+    std::cin >> cIn_custom;
+
+    auto* fully = new fullAdder;
+    fully->setInputs(false, false,cIn_custom);
+    fully->calculateSum(numeroUno, numeroDos);
+    result =  fully->getOutput();
+    printBinaryArray(result);
+
+    std::cout << "\nDecimal Equivalent (Sum) : " << convertBinaryToInt(result) << "\n";
+    std::cout << "Sum: " << "0" << " Carry: " << overflow << std::endl ;
+
+    delete fully;
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Stack OVerflow
+
+
+
+
+    //OPTIONAL
+    int turnCount;
+    int totalDamage;
+    int bigBoiHealth= 90;
 
     auto* James = new Human;
-    std::cout << James->getSpecies() << std::endl;
-    James->getDamage();
-    delete James;
-
-
     auto* Tonal = new Balrog;
-    std::cout << James->getSpecies() << std::endl;
-    James->getDamage();
+    auto* Gandalf = new Elf;
+    auto* Nigga = new Cyberdemon;
+
+    std::cout << "\nWelcome to Magic the Gathering (southampton edition)";
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    std::cout << "\nPress any key to continue:";
+    std::cin.get();
+
+    std::cout << "\nEnter number of truns:";
+    std::cin >> turnCount;
+
+    std::cout << "\nEnter boss health:";
+    std::cin >> bigBoiHealth;
+
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::cout <<"\nOh? A big booty latina appeared with " <<
+            bigBoiHealth << " damage...\n" << "Will you be able to defeat her?? (Intense Music starts playing)";
+
+    std::cout << "3..";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "2..";
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "1.." ;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "FIGHT!" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+
+
+    for (int turn = 1; turn < turnCount; turn++) {
+        std::cout << "--------------Turn " << turn << "---------------"<< std::endl;
+        totalDamage = James->getDamage() + Gandalf->getDamage() + Tonal->getDamage() + Nigga->getDamage();
+        bigBoiHealth -=totalDamage;
+        std::cout << "----------------Total Damage: " << totalDamage
+        << "--------------\n"<< "----------------Remaining Health "<< bigBoiHealth <<
+        "--------------------\n" <<"Press enter to atttack" << std::endl;
+        std::cin.get();
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+    }
+    if (bigBoiHealth > 0){
+        std::cout<< "YOU HAVE FAILED!\n\n" << "Remaining health: "
+        << bigBoiHealth << "Better Luck Next Time" ;
+    } else if (bigBoiHealth < 0){
+        std::cout<< "Congratulations! You have beaten the monster! Go get yourself a burger man!";
+    }
+
+
+
+
+    delete Tonal;
     delete James;
+    delete Nigga;
+    delete Gandalf;
 
 
 
