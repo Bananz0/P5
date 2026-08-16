@@ -5,13 +5,11 @@
 #include "Creature.h"
 #include <thread>
 #include <chrono>
-#include <cstdlib>
-#include <ctime>
 
 bool overflow = false;
-
+int bitCount = 8;
 void printBinaryArray(const std::vector<bool>& binArray);
-int convertBinaryToInt(std::vector<bool> binArray);
+int convertBinaryToInt(std::vector<bool> binVector);
 std::vector<bool>convertToBinary(int numIn);
 std::vector<bool> twosComplement(std::vector<bool> binaryArray);
 
@@ -151,6 +149,7 @@ public:
 };
 
 int main() {
+    srand(time(nullptr));
     std::vector<bool> numeroUno, numeroDos,result;
     int numeroOne, numeroTwo;
     bool cIn_custom;
@@ -237,8 +236,8 @@ int main() {
     std::cin >> bigBoiHealth;
 
     std::this_thread::sleep_for(std::chrono::seconds(5));
-    std::cout <<"\nOh? A big booty latina appeared with " <<
-            bigBoiHealth << " damage...\n" << "Will you be able to defeat her?? (Intense Music starts playing)";
+    std::cout <<"\nOh? monster appeared with " <<
+            bigBoiHealth << " damage...\n" << "Will you be able to defeat it? (Intense Music starts playing)";
 
     std::cout << "3..";
     std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -263,10 +262,12 @@ int main() {
     }
     if (bigBoiHealth > 0){
         std::cout<< "YOU HAVE FAILED!\n\n" << "Remaining health: "
-        << bigBoiHealth << "Better Luck Next Time" ;
+        << bigBoiHealth << "\nBetter Luck Next Time" ;
     } else if (bigBoiHealth < 0){
-        std::cout<< "Congratulations! You have beaten the monster! Go get yourself a burger man!";
+        std::cout<< "Congratulations! You have beaten the monster! Go get yourself a burger man!";\
     }
+
+
 
 
 
@@ -319,29 +320,27 @@ std::vector<bool> twosComplement(std::vector<bool> binaryArray) {
     }
     return binArrayComplement;
 }
-int convertBinaryToInt(std::vector<bool> binArray) {
-    int out = 0;
-    int a;
+int convertBinaryToInt(std::vector<bool> binVector) {
+    int decNum = 0;
+    int n = binVector.size();
+    if (binVector.size() == bitCount) {
+        std::cout << binVector.size() << bitCount << std::endl;
+    }
+    //std::cout << "The size of the binary array is: " << n << std::endl;
 
-    // Check if the number is negative
-    bool isNegative = binArray[0]; // MSB indicates sign
 
-    // If the number is negative, calculate two's complement
-    if (isNegative) {
-        binArray = twosComplement(binArray);
+    for (int j = 1; j < n; j++) {
+        decNum = decNum + binVector[j] * pow(2, n - j - 1);
     }
 
-    // Convert binary to decimal
-    for (overflow ? a = 1 : a = 0; a < binArray.size(); a++) {
-        out += binArray[a] * pow(2, binArray.size() - 1 - a);
+    std::cout << "The decNum of the binary array is: " << decNum << std::endl;
+
+    if (binVector[0] == 1 && decNum != 0) {
+        decNum = decNum - pow(2, binVector.size() - 1);
     }
 
-    // Apply negative sign if necessary
-    if (isNegative) {
-        out = -out;
-    }
-
-    return out;
+    std::cout << "The decimal equivalent is: " << decNum << std::endl;
+    return decNum;
 }
 void printBinaryArray(const std::vector<bool>& binArray) {
     for (auto &&i: binArray) {

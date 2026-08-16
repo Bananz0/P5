@@ -10,7 +10,6 @@ Creature::Creature(int newType, int newStrength, int newHit) {
     strength = newStrength;
     hitpoints = newHit;
 }
-
 string Creature::getSpecies() {
     return "Unknown";
 }
@@ -21,7 +20,6 @@ int Creature::getDamage() {
          damage << " points!" << endl;
     return damage;
 }
-
 void Creature::setType(int typeIn) {
     type = typeIn;
 }
